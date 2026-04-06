@@ -65,8 +65,14 @@ nmap -p- scanme.nmap.org
 **Purpose:**
 Scan all 65535 TCP ports to identify hidden or non-standard services.
 
-**Expected Result:**
-- No additional critical open ports beyond initial scan
+**Result:**
+- Confirmed open ports: 22 (SSH), 80 (HTTP), 9929, 31337
+- Port 25 (SMTP) detected as filtered
+- No additional hidden open ports discovered
+
+**Insight:**
+The full scan confirms the initial findings and shows that no unexpected services are exposed.  
+The presence of a filtered SMTP port suggests firewall or access control rules are in place.
 
 ---
 
