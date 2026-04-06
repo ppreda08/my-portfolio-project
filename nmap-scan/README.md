@@ -1,81 +1,158 @@
-# Nmap Scan & Vulnerability Analysis (scanme.nmap.org)
+# 🔍 Nmap Scan & Vulnerability Analysis (scanme.nmap.org)
+
+## ⚠️ Disclaimer
+This scan was performed on **scanme.nmap.org**, an officially authorized and safe testing target provided by Nmap.
+
+---
 
 ## 🎯 Objective
-Perform reconnaissance and vulnerability scanning on a safe public test target using Nmap.
+To perform reconnaissance and vulnerability scanning on a public test system using Nmap and analyze potential security risks.
+
+---
 
 ## 🛠️ Tools Used
 - Nmap (Network Mapper)
 - NSE (Nmap Scripting Engine)
 
-## 🔍 Steps Performed
+---
+
+## 🔎 Steps Performed
 
 ### 1. Initial Port Scan
-Command:
+**Command:**
 nmap scanme.nmap.org
 
-Result:
+**Result:**
 - Open ports: 22 (SSH), 80 (HTTP), 9929, 31337
-- Most ports closed
+- Most other ports are closed
+
+---
 
 ### 2. Service Enumeration
-Command:
+**Command:**
 nmap -sV scanme.nmap.org
 
-Result:
-- SSH: OpenSSH 6.6.1 (Ubuntu)
-- HTTP: Apache 2.4.7 (Ubuntu)
+**Result:**
+- SSH: OpenSSH (Ubuntu)
+- HTTP: Apache (Ubuntu)
+
+---
 
 ### 3. Advanced Scan
-Command:
+**Command:**
 nmap -A scanme.nmap.org
 
-Result:
+**Result:**
 - OS detected: Linux
-- Traceroute performed
-- Server info discovered
+- Additional host and service details identified
+
+---
 
 ### 4. Vulnerability Scan
-Command:
+**Command:**
 nmap --script=vuln scanme.nmap.org
 
-Result:
-- Vulnerability found:
+**Result:**
+- Potential vulnerability detected:
   - Slowloris DoS (CVE-2007-6750)
-  - State: Likely Vulnerable
+
+---
+
+### 5. Full Port Scan
+**Command:**
+nmap -p- scanme.nmap.org
+
+**Purpose:**
+Scan all 65535 TCP ports to identify hidden or non-standard services.
+
+**Expected Result:**
+- No additional critical open ports beyond initial scan
+
+---
+
+## 🌐 HTTP Enumeration
+
+### Command Used:
+nmap --script=http-enum scanme.nmap.org
+
+### Purpose:
+To discover publicly accessible web directories and hidden paths.
+
+### Findings:
+- Discovered directory: `/images/`
+- Possible exposure of public resources
+
+---
+
+## 🔑 Key Findings
+- Port 22 (SSH) is open → remote access service
+- Port 80 (HTTP) is open → web server available
+- Additional high ports detected (9929, 31337)
+- `/images/` directory exposed
+- No major vulnerabilities confirmed
+
+---
+
+## ⚠️ Security Analysis
+- SSH exposure → brute-force risk
+- HTTP service → potential web attack surface
+- Directory exposure → information disclosure risk
+- No critical vulnerabilities, but monitoring required
+
+---
+
+## 🛡️ Mitigation Recommendations
+- Disable SSH password authentication (use key-based login)
+- Implement rate limiting / fail2ban for SSH
+- Keep web server updated
+- Disable directory listing on web server
+- Restrict unnecessary open ports via firewall
+
+---
+
+## 🧠 Analysis
+The system exposes multiple services including SSH and HTTP, as well as a public web directory.  
+While no critical vulnerabilities were confirmed, these services increase the attack surface.
+
+---
+
+## 🎯 Attacker Perspective
+An attacker could:
+- Attempt brute-force attacks on SSH
+- Explore exposed directories for sensitive files
+- Target web server vulnerabilities
+
+---
+
+## 🛡️ Defender Perspective
+A defender should:
+- Monitor login attempts and logs
+- Restrict SSH access
+- Patch and update services
+- Monitor web traffic for unusual activity
+
+---
 
 ## ⚙️ Commands Used
-
 - nmap scanme.nmap.org
 - nmap -sV scanme.nmap.org
 - nmap -A scanme.nmap.org
 - nmap --script=vuln scanme.nmap.org
+- nmap --script=http-enum scanme.nmap.org
+- nmap -p- scanme.nmap.org
 
-## 🔍 Key Findings
-
-- Port 22 (SSH) is open → remote access service running
-- Port 80 (HTTP) is open → web server available
-- Additional high ports detected (9929, 31337)
-- Most ports are closed → system is relatively hardened
-
-## ⚠️ Security Analysis
-
-- SSH exposed → potential brute-force attack vector
-- HTTP service → could be vulnerable to web exploits
-- No obvious critical vulnerabilities found (test target)
-
-## 🧠 Interpretation
-
-The target system is reachable and running common services.  
-Exposure is minimal, but services like SSH and HTTP should be monitored and secured.
+---
 
 ## 🧠 Skills Demonstrated
+- Network reconnaissance
 - Port scanning
 - Service enumeration
-- OS detection
-- Vulnerability scanning
+- Vulnerability assessment
+- Web enumeration
+- Security analysis and reporting
+
+---
 
 ## 📌 Conclusion
-Demonstrated practical use of Nmap for reconnaissance and vulnerability detection.
-
-## ⚠️ Disclaimer
-Test performed on scanme.nmap.org (authorized test target).
+This project demonstrates practical use of Nmap for reconnaissance, service detection, and vulnerability analysis.  
+It highlights how exposed services and directories contribute to potential attack vectors and the importance of proper system hardening.
