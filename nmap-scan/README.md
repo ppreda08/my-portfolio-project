@@ -43,11 +43,30 @@ Result:
   - Slowloris DoS (CVE-2007-6750)
   - State: Likely Vulnerable
 
-## ⚠️ Key Findings
-- Outdated Apache server
-- Potential DoS vulnerability
-- No XSS found
-- Interesting directory: /images/
+## ⚙️ Commands Used
+
+- nmap scanme.nmap.org
+- nmap -sV scanme.nmap.org
+- nmap -A scanme.nmap.org
+- nmap --script=vuln scanme.nmap.org
+
+## 🔍 Key Findings
+
+- Port 22 (SSH) is open → remote access service running
+- Port 80 (HTTP) is open → web server available
+- Additional high ports detected (9929, 31337)
+- Most ports are closed → system is relatively hardened
+
+## ⚠️ Security Analysis
+
+- SSH exposed → potential brute-force attack vector
+- HTTP service → could be vulnerable to web exploits
+- No obvious critical vulnerabilities found (test target)
+
+## 🧠 Interpretation
+
+The target system is reachable and running common services.  
+Exposure is minimal, but services like SSH and HTTP should be monitored and secured.
 
 ## 🧠 Skills Demonstrated
 - Port scanning
